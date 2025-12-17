@@ -7,13 +7,18 @@ spring:
     url: jdbc:mysql://8.148.193.100:3306/spoc_lite?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     username: root
     password: root
+  servlet:
+    multipart:
+          max-file-size: 1024MB      # 单个文件最大限制
+          max-request-size: 1024MB   # 单次请求总大小限制
 mybatis:
-  # ?????????? (?????????? create_time ???? Java ? createTime)
   configuration:
     map-underscore-to-camel-case: true
-    # ??????????? SQL?????
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-  # ?? MyBatis ???? XML ??
   mapper-locations: classpath:mapper/*.xml
-  # ?? MyBatis ?????? (?????? XML ?? resultType ????????)
   type-aliases-package: com.spoc.entity
+
+# 自定义配置：文件存储路径 (建议放在项目根目录下的 files 文件夹)
+spoc:
+  upload:
+    path: ./files/

@@ -21,4 +21,6 @@ public interface ChapterMapper {
 
     // 5. 根据ID查单个详情
     Chapter selectById(Long id);
+
+    int countByCourseId(Long courseId);
 }

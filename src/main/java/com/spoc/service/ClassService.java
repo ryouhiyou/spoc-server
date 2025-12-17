@@ -1,6 +1,8 @@
 package com.spoc.service;
 
 import com.spoc.entity.ClassInfo;
+import com.spoc.entity.vo.StudentProgressVO;
+
 import java.util.List;
 
 public interface ClassService {
@@ -12,4 +14,8 @@ public interface ClassService {
 
     // 特殊业务：排课
     void assignCourse(Long classId, Long courseId);
+
+    void addStudent(Long classId, Long studentId);
+
+    List<StudentProgressVO> getClassProgress(Long classId, Long courseId);
 }

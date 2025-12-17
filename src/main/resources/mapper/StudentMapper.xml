@@ -41,4 +41,11 @@
         WHERE id = #{id} AND role = 2
     </select>
 
+    <select id="selectByClassId" resultType="com.spoc.entity.User">
+        SELECT u.id, u.username, u.real_name, u.create_time
+        FROM sys_user u
+                 INNER JOIN sys_class_student cs ON u.id = cs.student_id
+        WHERE cs.class_id = #{classId}
+    </select>
+
 </mapper>

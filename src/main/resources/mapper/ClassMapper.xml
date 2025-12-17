@@ -31,4 +31,9 @@
         VALUES (#{classId}, #{courseId})
     </insert>
 
+    <insert id="addStudentToClass">
+        INSERT IGNORE INTO sys_class_student (class_id, student_id)
+        VALUES (#{classId}, #{studentId})
+    </insert>
+
 </mapper>

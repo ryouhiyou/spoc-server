@@ -61,4 +61,24 @@ public class ClassController {
         classService.assignCourse(classId, courseId);
         return Result.success("排课成功");
     }
+
+    @PostMapping("/add-student")
+    public Result<String> addStudent(@RequestBody Map<String, Long> params) {
+        Long classId = params.get("classId");
+        Long studentId = params.get("studentId");
+
+        if (classId == null || studentId == null) {
+            return Result.error("参数错误：classId 或 studentId 不能为空");
+        }
+
+        classService.addStudent(classId, studentId);
+        return Result.success("学生添加成功");
+    }
+
+    @GetMapping("/progress")
+    public Result<List<com.spoc.entity.vo.StudentProgressVO>> getClassProgress(
+            @RequestParam Long classId,
+            @RequestParam Long courseId) {
+        return Result.success(classService.getClassProgress(classId, courseId));
+    }
 }

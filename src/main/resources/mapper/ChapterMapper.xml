@@ -31,4 +31,8 @@
         SELECT * FROM course_chapter WHERE id = #{id}
     </select>
 
+    <select id="countByCourseId" resultType="int">
+        SELECT COUNT(*) FROM course_chapter WHERE course_id = #{courseId}
+    </select>
+
 </mapper>

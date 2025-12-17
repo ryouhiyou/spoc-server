@@ -25,4 +25,6 @@ public interface ClassMapper {
 
     // 6. 给班级排课 (保持不变)
     int assignCourse(@Param("classId") Long classId, @Param("courseId") Long courseId);
+
+    void addStudentToClass(@Param("classId") Long classId, @Param("studentId") Long studentId);
 }

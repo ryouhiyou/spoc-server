@@ -28,4 +28,6 @@ public interface StudentMapper {
 
     // 5. 根据ID查学生
     User selectById(Long id);
+
+    List<User> selectByClassId(Long classId);
 }
