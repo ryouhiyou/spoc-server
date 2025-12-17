@@ -4,6 +4,9 @@ import com.spoc.entity.CourseProgress;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+import java.util.Map;
+
 @Mapper
 public interface ProgressMapper {
 
@@ -21,4 +24,6 @@ public interface ProgressMapper {
      * 统计某学生某课程完成了多少章节 (用于计算课程总进度)
      */
     int countFinishedChapters(@Param("studentId") Long studentId, @Param("courseId") Long courseId);
+
+    List<Map<String, Object>> selectHistoryByStudentId(Long studentId);
 }

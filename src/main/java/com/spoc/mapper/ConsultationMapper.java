@@ -11,4 +11,6 @@ public interface ConsultationMapper {
 
     // 回复咨询
     void reply(Consultation consultation);
+
+    void insert(Consultation c);
 }

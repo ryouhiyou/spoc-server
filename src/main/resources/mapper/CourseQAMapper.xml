@@ -24,4 +24,17 @@
         WHERE id = #{id}
     </update>
 
+    <insert id="insert">
+        INSERT INTO course_qa (course_id, student_id, title, content, status, create_time)
+        VALUES (#{courseId}, #{studentId}, #{title}, #{content}, 0, NOW())
+    </insert>
+
+    <select id="selectByCourseId" resultType="com.spoc.entity.CourseQA">
+        SELECT q.*, u.real_name as studentName
+        FROM course_qa q
+                 LEFT JOIN sys_user u ON q.student_id = u.id
+        WHERE q.course_id = #{courseId}
+        ORDER BY q.create_time DESC
+    </select>
+
 </mapper>

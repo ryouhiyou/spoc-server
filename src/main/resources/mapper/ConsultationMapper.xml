@@ -22,4 +22,9 @@
         WHERE id = #{id}
     </update>
 
+    <insert id="insert">
+        INSERT INTO sys_consultation (student_id, content, status, create_time)
+        VALUES (#{studentId}, #{content}, 0, NOW())
+    </insert>
+
 </mapper>

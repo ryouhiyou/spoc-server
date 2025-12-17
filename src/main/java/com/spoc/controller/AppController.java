@@ -25,6 +25,7 @@ public class AppController {
     // 1. App 上报进度 (心跳包)
     @PostMapping("/progress/upload")
     public Result<String> uploadProgress(@RequestBody CourseProgress progress) {
+        // ★ 校验增强：确保 studentId, courseId, chapterId 都有
         if(progress.getStudentId() == null || progress.getChapterId() == null) {
             return Result.error("参数缺失");
         }
@@ -33,21 +34,27 @@ public class AppController {
     }
 
     // 2. App 获取章节详情（包含进度）
-    // App 播放视频前调用此接口，获取 url 和上次看到的时间 currentPosition
     @GetMapping("/chapter/detail")
     public Result<Map<String, Object>> getChapterDetail(
             @RequestParam Long studentId,
             @RequestParam Long chapterId) {
 
-        // 获取章节基本信息
-        Chapter chapter = chapterService.getChapterById(chapterId); // 需确保 ChapterService 有此方法
-        // 获取进度信息
+        Chapter chapter = chapterService.getChapterById(chapterId);
         CourseProgress progress = progressService.getProgress(studentId, chapterId);
 
         Map<String, Object> map = new HashMap<>();
         map.put("chapter", chapter);
-        map.put("progress", progress); // 如果是 null，说明没看过，App 从 0 开始播
+        map.put("progress", progress);
 
         return Result.success(map);
+    }
+
+    // ★ 3. 新增：App 获取我的学习记录列表 (这就是缺少的那个！)
+    // 对应前端 API: /app/progress/list
+    @GetMapping("/progress/list")
+    public Result<List<Map<String, Object>>> getMyHistory(@RequestParam Long studentId) {
+        // 调用 Service 查询列表
+        List<Map<String, Object>> list = progressService.getStudentHistory(studentId);
+        return Result.success(list);
     }
 }

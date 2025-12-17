@@ -6,6 +6,9 @@ import com.spoc.service.ProgressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
+
 @Service
 public class ProgressServiceImpl implements ProgressService {
 
@@ -27,5 +30,10 @@ public class ProgressServiceImpl implements ProgressService {
     @Override
     public CourseProgress getProgress(Long studentId, Long chapterId) {
         return progressMapper.selectByStudentAndChapter(studentId, chapterId);
+    }
+
+    @Override
+    public List<Map<String, Object>> getStudentHistory(Long studentId) {
+        return progressMapper.selectHistoryByStudentId(studentId);
     }
 }

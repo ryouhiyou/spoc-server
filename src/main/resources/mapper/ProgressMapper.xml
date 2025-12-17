@@ -28,4 +28,19 @@
           AND is_finished = 1
     </select>
 
+    <select id="selectHistoryByStudentId" resultType="java.util.Map">
+        SELECT
+            p.course_id as courseId,
+            p.chapter_id as chapterId,
+            p.current_position as currentPosition,
+            p.duration as duration,
+            p.is_finished as isFinished,
+            c.course_name as courseName,    ch.title as chapterTitle
+        FROM course_progress p
+                 LEFT JOIN course_info c ON p.course_id = c.id
+                 LEFT JOIN chapter ch ON p.chapter_id = ch.id
+        WHERE p.student_id = #{studentId}
+        ORDER BY p.is_finished ASC, p.course_id DESC
+    </select>
+
 </mapper>
