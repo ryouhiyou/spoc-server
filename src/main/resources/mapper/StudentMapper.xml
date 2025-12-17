@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spoc.mapper.StudentMapper">
+
+    <select id="selectCoursesByStudentId" resultType="com.spoc.entity.Course">
+        SELECT c.id, c.course_name, c.cover, c.description, c.create_time
+        FROM course_info c
+                 INNER JOIN sys_class_course cc ON c.id = cc.course_id
+                 INNER JOIN sys_class_student cs ON cc.class_id = cs.class_id
+        WHERE cs.student_id = #{studentId}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO sys_user (username, password, real_name, role)
+        VALUES (#{username}, #{password}, #{realName}, 2)
+    </insert>
+
+    <delete id="deleteById">
+        DELETE FROM sys_user WHERE id = #{id} AND role = 2
+    </delete>
+
+    <update id="update">
+        UPDATE sys_user
+        SET
+            username = #{username},
+            real_name = #{realName}
+        WHERE id = #{id} AND role = 2
+    </update>
+
+    <select id="selectAllStudents" resultType="com.spoc.entity.User">
+        SELECT id, username, real_name, role, create_time
+        FROM sys_user
+        WHERE role = 2
+        ORDER BY create_time DESC
+    </select>
+
+    <select id="selectById" resultType="com.spoc.entity.User">
+        SELECT id, username, real_name, role, create_time
+        FROM sys_user
+        WHERE id = #{id} AND role = 2
+    </select>
+
+</mapper>

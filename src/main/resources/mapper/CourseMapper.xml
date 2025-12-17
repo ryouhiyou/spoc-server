@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spoc.mapper.CourseMapper">
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO course_info (course_name, description, cover, teacher_id)
+        VALUES (#{courseName}, #{description}, #{cover}, #{teacherId})
+    </insert>
+
+    <select id="selectAll" resultType="com.spoc.entity.Course">
+        SELECT * FROM course_info ORDER BY create_time DESC
+    </select>
+
+    <delete id="deleteById">
+        DELETE FROM course_info WHERE id = #{id}
+    </delete>
+
+    <update id="update">
+        UPDATE course_info
+        SET
+            course_name = #{courseName},
+            description = #{description},
+            cover = #{cover}
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectById" resultType="com.spoc.entity.Course">
+        SELECT * FROM course_info WHERE id = #{id}
+    </select>
+
+</mapper>
