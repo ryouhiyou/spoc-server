@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spoc.mapper.ConsultationMapper">
+
+    <select id="selectAll" resultType="com.spoc.entity.Consultation">
+        SELECT
+            c.*,
+            u.real_name as studentName
+        FROM sys_consultation c
+                 LEFT JOIN sys_user u ON c.student_id = u.id
+        ORDER BY c.status ASC, c.create_time DESC
+    </select>
+
+    <update id="reply">
+        UPDATE sys_consultation
+        SET
+            reply = #{reply},
+            status = 1,
+            reply_time = NOW()
+        WHERE id = #{id}
+    </update>
+
+</mapper>

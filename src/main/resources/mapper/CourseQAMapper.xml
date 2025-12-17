@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spoc.mapper.CourseQAMapper">
+
+    <select id="selectAll" resultType="com.spoc.entity.CourseQA">
+        SELECT
+            q.*,
+            c.course_name as courseName,
+            u.real_name as studentName
+        FROM course_qa q
+                 LEFT JOIN course_info c ON q.course_id = c.id
+                 LEFT JOIN sys_user u ON q.student_id = u.id
+        ORDER BY q.status ASC, q.create_time DESC
+    </select>
+
+    <update id="reply">
+        UPDATE course_qa
+        SET
+            reply = #{reply},
+            status = 1,
+            reply_time = NOW()
+        WHERE id = #{id}
+    </update>
+
+</mapper>
